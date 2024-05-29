@@ -1,0 +1,80 @@
+{
+  "filmes": [
+    {
+        "nome": "A Viagem de Chihiro",
+        "imagem": "https://br.web.img3.acsta.net/pictures/210/527/21052756_20131024195513383.jpg",
+        "duração": "2 horas",
+        "ano de lançamento": "2004",
+        "nota": "5"
+      },
+      {
+        "nome": "Ponyo",
+        "imagem": "https://m.media-amazon.com/images/I/61ry7KsRfIS._AC_SL1000_.jpg",
+        "duração": "2.3 horas",
+        "ano de lançamento": "2006",
+        "nota": "3"
+      },  
+      {
+        "nome": "Homem de ferro 3",
+        "imagem": "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/C0BA59D770EDF31BD282925F3C7D69A0A9F404CBBC44BE12A7BB310412C42FC7/scale?width=1200&aspectRatio=1.78&format=webp",
+        "duração": "3 horas",
+        "ano de lançamento": "2015",
+        "nota": "5"
+      },  
+      {
+         "nome": "Vingadores",
+        "imagem": "https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/89/43/82/20052140.jpg",
+        "duração": "3 horas",
+        "ano de lançamento": "2012",
+        "nota": "5"
+      },  
+      {
+        "nome": "Castelo Animado",
+        "imagem": "https://capas.nyc3.cdn.digitaloceanspaces.com/650-5000245618508.jpg",
+        "duração": "3 horas",
+        "ano de lançamento": "2006",
+        "nota": "4"
+      },  
+      {
+        "nome": "Mario Bros",
+        "imagem": "https://fly.metropoles.cloud/upload/q_85,w_600/https://uploads.metropoles.cloud/wp-content/uploads/2023/04/05144048/Super-Mario-Bros.-O-Filme-1.jpg",
+        "duração": "2 horas",
+        "ano de lançamento": "2023",
+        "nota": "5"
+      },
+      {
+         "nome": "Velozes e Furiosos 10",
+        "imagem": "https://br.web.img2.acsta.net/pictures/23/05/16/22/53/0156803.jpg",
+        "duração": "3 horas",
+        "ano de lançamento": "2023",
+        "nota": "5"
+      }
+  ],
+  "usuarios": [
+    {
+      "nome": "Rodrigo",
+      "senha": "1234",
+      "id": "1e56"
+    },
+    {
+      "id": "avulso",
+      "login": "avulso",
+      "senha": "1122"
+    },
+    {
+      "id": "Teste",
+      "nome": "Teste",
+      "senha": "teste123"
+    },
+    {
+      "id": "avulso",
+      "nome": "avulso",
+      "senha": "1122"
+    },
+    {
+      "id": "Jéssica",
+      "nome": "Jéssica",
+      "senha": "2222"
+    }
+  ]
+}
