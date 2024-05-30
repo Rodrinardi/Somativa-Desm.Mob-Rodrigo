@@ -10,19 +10,14 @@ class Filmes extends StatefulWidget {
 }
 
 class _FilmesState extends State<Filmes> {
-  List filmes = <FilmesItens>[];
-  _exibefilme()async{
-    String url = "https://raw.githubusercontent.com/danielvieira95/DESM-2/master/filmes.json";
-    //String url = "http://10.109.83.04:3000/filmes";
-    http.Response resposta = await http.get(Uri.parse(url));
-     
-    List dado = json.decode(resposta.body) as List; 
-    print(dado);
-    setState(() {
-      filmes = dado.map((json) => FilmesItens.fromJson(json)).toList(); 
-    });
-    
+  Future<List<FilmesItens>> postsFuture = getPosts();
 
+  // function to fetch data from api and return future list of posts
+  static Future<List<FilmesItens>> getPosts() async {
+    var url = Uri.parse('https://raw.githubusercontent.com/danielvieira95/DESM-2/master/filmes.json');
+    final response = await http.get(url, headers: {"Content-Type": "application/json"});
+    final List body = json.decode(response.body);
+    return body.map((e) => FilmesItens.fromJson(e)).toList();
   }
   @override
   Widget build(BuildContext context) {
@@ -31,21 +26,21 @@ class _FilmesState extends State<Filmes> {
         title: Text("Streaming de Filmes"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-             Column(
-                  children: filmes.map((filme) => Text(
-                          "${filme.nome} - R\$ ${filme.imagem} - ${filme.duracao} - ${filme.ano_de_lancamento} - ${filme.nota}",
-                          style: TextStyle(fontSize: 18))).toList(),
-                ),
-            ElevatedButton(onPressed: _exibefilme, child: Text("Exibir")),
-            
-            
-      
-          ],
+        child: FutureBuilder<List<FilmesItens>>(
+          future: postsFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator(color: Color.fromARGB(255, 179, 12, 0),);
+            } else if (snapshot.hasData) {
+              final posts = snapshot.data!;
+              return mostrarFilmes(posts);
+            } else {
+              // if no data, show simple Text
+              return const Text("Nenhum Filme Encontrado!");
+            }
+          },
         ),
-      ),
+      )
     );
   }
 }
@@ -62,4 +57,40 @@ class FilmesItens{
   factory FilmesItens.fromJson(Map<String,dynamic>json){
     return FilmesItens(json["nome"],json["imagem"],json["duração"], json["ano de lançamento"], json["nota"]);
   }
+}
+
+Widget mostrarFilmes(List<FilmesItens>filmes){
+  return ListView.builder(
+    itemCount: filmes.length,
+    itemBuilder: (context, index) {
+      final filme = filmes[index];
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        height: MediaQuery.of(context).size.height/5,
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(width: 3, color: Colors.black)
+        ),
+        child: Row(
+          children: [
+            Expanded(flex: 3, child: Image.network(filme.imagem!)),
+            SizedBox(width: 10),
+            Expanded(flex: 3, child: Container(
+              child: ListView(
+                children: [
+                  Text(filme.nome!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                  Padding(padding: EdgeInsets.all(5)),
+                  Text('Lançamento: ${filme.ano_de_lancamento!}',style: TextStyle(fontSize: 15),),
+                  Text('Duração: ${filme.duracao!}',style: TextStyle(fontSize: 15),),
+                  Text('Nota: ${filme.nota!} estrelas',style: TextStyle(fontSize: 15),)
+                ],
+              ),
+            )),
+          ],
+        ),
+      );
+    },
+  );
 }

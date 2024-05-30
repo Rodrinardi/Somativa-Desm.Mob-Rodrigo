@@ -16,10 +16,9 @@ class _LoginState extends State<Login> {
   TextEditingController senha = TextEditingController();
   bool exibir = false; 
   _verificaLogin()async{
-   bool encuser = false; 
-    String url = "http://10.109.83.04:3000/usuarios"; 
+    bool encuser = false; 
+    String url = "http://192.168.15.123:3000/usuarios"; 
     http.Response resposta = await http.get(Uri.parse(url)); 
-    print(resposta.statusCode);
     List dados = [];
     dados = json.decode(resposta.body) as List;     
     for(int i=0; i<dados.length;){
@@ -99,7 +98,9 @@ class _LoginState extends State<Login> {
               ),
       
             ),
-            ElevatedButton(onPressed: _verificaLogin, child: Text("Entrar"),),
+            ElevatedButton(onPressed: (){
+              _verificaLogin();
+            }, child: Text("Entrar"),),
             ElevatedButton(onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>Cadastrousuario()));
               
@@ -108,17 +109,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-}
-
-
-class Users{
-  String id;
-  String login;
-  String senha;
-  Users(this.id,this.login, this.senha);
-  
-  factory Users.fromJson(Map<String,dynamic>json){
-    return Users(json["id"],json["nome"],json["senha"]);
   }
 }

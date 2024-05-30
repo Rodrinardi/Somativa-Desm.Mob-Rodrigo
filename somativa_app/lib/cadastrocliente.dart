@@ -12,8 +12,7 @@ class _CadastrousuarioState extends State<Cadastrousuario> {
   TextEditingController senha_n = TextEditingController();
   bool exibir = false; 
   _cadastrausuario()async{
-   bool encuser = false; 
-    String url = "http://10.109.83.04:3000/usuarios";
+    String url = "http://192.168.15.123:3000/usuarios";
     Map<String,dynamic> mensagem = {
       "id": user_n.text,
       "nome":user_n.text,
@@ -91,7 +90,9 @@ class _CadastrousuarioState extends State<Cadastrousuario> {
               ),
       
             ),
-            ElevatedButton(onPressed: _cadastrausuario, child: Text("Cadastrar"),),
+            ElevatedButton(onPressed: (){
+              _cadastrausuario();
+            }, child: Text("Cadastrar"),),
             
           ],
         ),
